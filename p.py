@@ -44,11 +44,31 @@ class CAPapp():
                 )
         self.pasteBtn.grid(row=5,column=1)
         
-        self.keyoff="\0\0\0\0\0\0\0\0"
-        self.ctrl="\x1\0\0\0\0\0\0\0"
-        self.ctrlX="\x1\0\x1b\0\0\0\0\0"
-        self.ctrlC="\x1\0\x6\0\0\0\0\0"
-        self.ctrlV="\x1\0\x19\0\0\0\0\0"
+        self.keyoff=""
+        self.keyoff+=chr(0x00)
+        self.keyoff+=chr(0x00)
+        self.keyoff+=chr(0x00)
+        self.ctrl=""
+        self.ctrl+=chr(0x01)
+        self.ctrl+=chr(0x00)
+        self.ctrl+=chr(0x00)
+        self.ctrlX=""
+        self.ctrlX+=chr(0x01)
+        self.ctrlX+=chr(0x00)
+        self.ctrlX+=chr(0x1b)
+        self.ctrlC=""
+        self.ctrlC+=chr(0x01)
+        self.ctrlC+=chr(0x00)
+        self.ctrlC+=chr(0x06)
+        self.ctrlV=""
+        self.ctrlV+=chr(0x01)
+        self.ctrlV+=chr(0x00)
+        self.ctrlV+=chr(0x19)
+        for n in range(5):
+            self.ctrl+=chr(0x00)
+            self.ctrlV+=chr(0x00)
+            self.ctrlC+=chr(0x00)
+            self.ctrlX+=chr(0x00)
 
     def cutBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
