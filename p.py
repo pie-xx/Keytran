@@ -44,46 +44,32 @@ class CAPapp():
                 )
         self.pasteBtn.grid(row=5,column=1)
         
-        self.keyoff=""
-        for n in range(8):
-            self.keyoff+=chr(0x00)
+        self.keyoff="\0\0\0\0\0\0\0\0"
+        self.ctrl="\x1\0\0\0\0\0\0\0"
+        self.ctrlX="\x1\0\x1b\0\0\0\0\0"
+        self.ctrlC="\x1\0\x6\0\0\0\0\0"
+        self.ctrlV="\x1\0\x19\0\0\0\0\0"
 
     def cutBtn_clicked(self):
-      kon=""
-      kon+=chr(0x01)
-      kon+=chr(0x0)
-      kon+=chr(0x1b)
-      for n in range(5):
-        kon+=chr(0x00)
       with open('/dev/hidg0', 'w') as f:
-        f.write(kon)
+        f.write(self.ctrl)
+        f.write(self.ctrlX)
         time.sleep(1)
         f.write(self.keyoff)
 
     def copyBtn_clicked(self):
-      kon=""
-      kon+=chr(0x01)
-      kon+=chr(0x0)
-      kon+=chr(0x06)
-      for n in range(5):
-        kon+=chr(0x00)
       with open('/dev/hidg0', 'w') as f:
-        f.write(kon)
+        f.write(self.ctrl)
+        f.write(self.ctrlC)
         time.sleep(1)
         f.write(self.keyoff)
 
     def pasteBtn_clicked(self):
-      kon=""
-      kon+=chr(0x01)
-      kon+=chr(0x0)
-      kon+=chr(0x19)
-      for n in range(5):
-        kon+=chr(0x00)
       with open('/dev/hidg0', 'w') as f:
-        f.write(kon)
+        f.write(self.ctrl)
+        f.write(self.ctrlV)
         time.sleep(1)
         f.write(self.keyoff)
-
 
     def run(self):
         self.root.mainloop()
