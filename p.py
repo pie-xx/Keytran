@@ -27,22 +27,28 @@ class CAPapp():
         self.fbar.grid(sticky=(tkinter.N,tkinter.W,tkinter.S,tkinter.E))
         """
         self.cutBtn = ttk.Button(
-                self.frame, text="Cut", width=50,
+                self.frame, text="Cut", width=40,
                 command=self.cutBtn_clicked
                 )
         self.cutBtn.grid(row=1,column=1)
 
         self.copyBtn = ttk.Button(
-                self.frame, text="Copy", width=50,
+                self.frame, text="Copy", width=40,
                 command=self.copyBtn_clicked
                 )
         self.copyBtn.grid(row=3,column=1)
         
         self.pasteBtn = ttk.Button(
-                self.frame, text="Paste", width=50,
+                self.frame, text="Paste", width=40,
                 command=self.pasteBtn_clicked
                 )
         self.pasteBtn.grid(row=5,column=1)
+        
+        self.cblistBtn = ttk.Button(
+                self.frame, text="Clip List", width=40,
+                command=self.cblistBtn_clicked
+                )
+        self.cblistBtn.grid(row=5,column=1)
         
         self.keyoff=""
         self.keyoff+=chr(0x00)
@@ -52,6 +58,10 @@ class CAPapp():
         self.ctrl+=chr(0x01)
         self.ctrl+=chr(0x00)
         self.ctrl+=chr(0x00)
+        self.winm=""
+        self.winm+=chr(0x08)
+        self.winm+=chr(0x00)
+        self.winm+=chr(0x00)
         self.ctrlX=""
         self.ctrlX+=chr(0x01)
         self.ctrlX+=chr(0x00)
@@ -66,6 +76,7 @@ class CAPapp():
         self.ctrlV+=chr(0x19)
         for n in range(5):
             self.ctrl+=chr(0x00)
+            self.winm+=chr(0x00)
             self.ctrlV+=chr(0x00)
             self.ctrlC+=chr(0x00)
             self.ctrlX+=chr(0x00)
@@ -74,7 +85,7 @@ class CAPapp():
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
         f.write(self.ctrlX)
-        time.sleep(1)
+        #time.sleep(1)
         f.write(self.ctrl)
         f.write(self.keyoff)
         f.write(self.keyoff)
@@ -86,7 +97,7 @@ class CAPapp():
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
         f.write(self.ctrlC)
-        time.sleep(1)
+        #time.sleep(1)
         f.write(self.ctrl)
         f.write(self.keyoff)
         f.write(self.keyoff)
@@ -98,8 +109,20 @@ class CAPapp():
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
         f.write(self.ctrlV)
-        time.sleep(1)
+        #time.sleep(1)
         f.write(self.ctrl)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        
+    def cblistBtn_clicked(self):
+      with open('/dev/hidg0', 'w') as f:
+        f.write(self.winm)
+        f.write(self.ctrlV)
+        #time.sleep(1)
+        f.write(self.winm)
         f.write(self.keyoff)
         f.write(self.keyoff)
         f.write(self.keyoff)
