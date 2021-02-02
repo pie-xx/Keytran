@@ -7,9 +7,6 @@ import numpy
 from PIL import Image, ImageTk
 import time
 
-Vwidth = 900
-Vheight = 900
-
 class CAPapp():
     def __init__(self, **kwargs):
         self.root = tkinter.Tk()
@@ -74,12 +71,17 @@ class CAPapp():
         self.ctrlV+=chr(0x01)
         self.ctrlV+=chr(0x00)
         self.ctrlV+=chr(0x19)
+        self.keyV=""
+        self.keyV+=chr(0x00)
+        self.keyV+=chr(0x00)
+        self.keyV+=chr(0x19)
         for n in range(5):
             self.ctrl+=chr(0x00)
             self.winm+=chr(0x00)
             self.ctrlV+=chr(0x00)
             self.ctrlC+=chr(0x00)
             self.ctrlX+=chr(0x00)
+            self.keyV+=chr(0x00)
 
     def cutBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
@@ -120,7 +122,7 @@ class CAPapp():
     def cblistBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
         f.write(self.winm)
-        f.write(self.ctrlV)
+        f.write(self.keyV)
         #time.sleep(1)
         f.write(self.winm)
         f.write(self.keyoff)
