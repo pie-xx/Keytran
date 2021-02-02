@@ -45,7 +45,7 @@ class CAPapp():
                 self.frame, text="Clip List", width=40,
                 command=self.cblistBtn_clicked
                 )
-        self.cblistBtn.grid(row=5,column=1)
+        self.cblistBtn.grid(row=7,column=1)
         
         self.keyoff=""
         self.keyoff+=chr(0x00)
