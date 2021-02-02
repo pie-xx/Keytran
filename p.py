@@ -71,17 +71,17 @@ class CAPapp():
         self.ctrlV+=chr(0x01)
         self.ctrlV+=chr(0x00)
         self.ctrlV+=chr(0x19)
-        self.keyV=""
-        self.keyV+=chr(0x00)
-        self.keyV+=chr(0x00)
-        self.keyV+=chr(0x19)
+        self.keyVw=""
+        self.keyVw+=chr(0x08)
+        self.keyVw+=chr(0x00)
+        self.keyVw+=chr(0x19)
         for n in range(5):
             self.ctrl+=chr(0x00)
             self.winm+=chr(0x00)
             self.ctrlV+=chr(0x00)
             self.ctrlC+=chr(0x00)
             self.ctrlX+=chr(0x00)
-            self.keyV+=chr(0x00)
+            self.keyVw+=chr(0x00)
 
     def cutBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
@@ -122,7 +122,7 @@ class CAPapp():
     def cblistBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
         f.write(self.winm)
-        f.write(self.keyV)
+        f.write(self.keyVw)
         #time.sleep(1)
         f.write(self.winm)
         f.write(self.keyoff)
