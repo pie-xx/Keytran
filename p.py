@@ -75,6 +75,11 @@ class CAPapp():
         f.write(self.ctrl)
         f.write(self.ctrlX)
         time.sleep(1)
+        f.write(self.ctrl)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
         f.write(self.keyoff)
 
     def copyBtn_clicked(self):
@@ -82,6 +87,11 @@ class CAPapp():
         f.write(self.ctrl)
         f.write(self.ctrlC)
         time.sleep(1)
+        f.write(self.ctrl)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
         f.write(self.keyoff)
 
     def pasteBtn_clicked(self):
@@ -89,6 +99,11 @@ class CAPapp():
         f.write(self.ctrl)
         f.write(self.ctrlV)
         time.sleep(1)
+        f.write(self.ctrl)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
         f.write(self.keyoff)
 
     def run(self):
