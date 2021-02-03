@@ -12,8 +12,9 @@ class CAPapp():
         self.root = tkinter.Tk()
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0,weight=1)
+        self.root.title("Keytran")
 
-        self.frame=ttk.Frame(self.root,padding=10)
+        self.frame=ttk.Frame(self.root,padding=0)
         self.frame.columnconfigure(0,weight=1)
         self.frame.rowconfigure(0,weight=1)
         self.frame.grid(sticky=(tkinter.N,tkinter.W,tkinter.S,tkinter.E))
@@ -27,25 +28,25 @@ class CAPapp():
                 self.frame, text="Cut", width=40,
                 command=self.cutBtn_clicked
                 )
-        self.cutBtn.grid(row=1,column=1)
+        self.cutBtn.grid(row=0,column=0, ipady=20, ipadx=10)
 
         self.copyBtn = ttk.Button(
                 self.frame, text="Copy", width=40,
                 command=self.copyBtn_clicked
                 )
-        self.copyBtn.grid(row=3,column=1)
+        self.copyBtn.grid(row=1,column=0, ipady=20, ipadx=10)
         
         self.pasteBtn = ttk.Button(
                 self.frame, text="Paste", width=40,
                 command=self.pasteBtn_clicked
                 )
-        self.pasteBtn.grid(row=5,column=1)
+        self.pasteBtn.grid(row=2,column=0, ipady=20, ipadx=10)
         
         self.cblistBtn = ttk.Button(
                 self.frame, text="Clip List", width=40,
                 command=self.cblistBtn_clicked
                 )
-        self.cblistBtn.grid(row=7,column=1)
+        self.cblistBtn.grid(row=3,column=0, ipady=20, ipadx=10)
         
         self.keyoff=""
         self.keyoff+=chr(0x00)
