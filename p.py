@@ -27,6 +27,7 @@ class HIDkey():
 
 class CAPapp():
     def __init__(self, **kwargs):
+        self.bH = 35
         self.root = tkinter.Tk()
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0,weight=1)
@@ -41,25 +42,25 @@ class CAPapp():
                 self.frame, text="Cut", width=40,
                 command=self.cutBtn_clicked
                 )
-        self.cutBtn.grid(row=0,column=0, ipady=20, ipadx=10)
+        self.cutBtn.grid(row=0,column=0, ipady=self.bH, ipadx=10)
 
         self.copyBtn = ttk.Button(
                 self.frame, text="Copy", width=40,
                 command=self.copyBtn_clicked
                 )
-        self.copyBtn.grid(row=1,column=0, ipady=20, ipadx=10)
+        self.copyBtn.grid(row=1,column=0, ipady=self.bH, ipadx=10)
         
         self.pasteBtn = ttk.Button(
                 self.frame, text="Paste", width=40,
                 command=self.pasteBtn_clicked
                 )
-        self.pasteBtn.grid(row=2,column=0, ipady=20, ipadx=10)
+        self.pasteBtn.grid(row=2,column=0, ipady=self.bH, ipadx=10)
         
         self.cblistBtn = ttk.Button(
                 self.frame, text="Clip List", width=40,
                 command=self.cblistBtn_clicked
                 )
-        self.cblistBtn.grid(row=3,column=0, ipady=20, ipadx=10)
+        self.cblistBtn.grid(row=3,column=0, ipady=self.bH, ipadx=10)
         
         self.keyoff=HIDkey.off
         
