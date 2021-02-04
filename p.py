@@ -97,7 +97,6 @@ class CAPapp():
     def cutBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
-        time.sleep(0.1)
         f.write(self.ctrlX)
         time.sleep(0.2)
         f.write(self.ctrl)
@@ -109,7 +108,6 @@ class CAPapp():
     def copyBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
-        time.sleep(0.1)
         f.write(self.ctrlC)
         time.sleep(0.2)
         f.write(self.ctrl)
@@ -121,7 +119,6 @@ class CAPapp():
     def pasteBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
-        time.sleep(0.1)
         f.write(self.ctrlV)
         time.sleep(0.2)
         f.write(self.ctrl)
