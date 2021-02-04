@@ -56,11 +56,11 @@ class CAPapp():
                 )
         self.pasteBtn.grid(row=2,column=0, ipady=self.bH, ipadx=10)
         
-        self.undotBtn = ttk.Button(
+        self.undoBtn = ttk.Button(
                 self.frame, text="Undo", width=40,
-                command=self.undotBtn_clicked
+                command=self.undoBtn_clicked
                 )
-        self.undotBtn.grid(row=3,column=0, ipady=self.bH, ipadx=10)
+        self.undoBtn.grid(row=3,column=0, ipady=self.bH, ipadx=10)
 
         self.cblistBtn = ttk.Button(
                 self.frame, text="Clip List", width=40,
@@ -141,7 +141,7 @@ class CAPapp():
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
         time.sleep(0.1)
-        f.write(self.ctrlV)
+        f.write(HIDkey.mkKey(HIDkey.Ctrl, 0x1d))
         time.sleep(0.2)
         f.write(self.ctrl)
         time.sleep(0.1)
