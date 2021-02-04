@@ -25,6 +25,16 @@ class HIDkey():
             keys+=chr(0x00)
         return keys
 
+    def mkKeyChr( mod, c ):
+        key = ord(c) - ord('a') + 4
+        keys = ""
+        keys += chr(mod)
+        keys += chr(0x00)
+        keys += chr(key)
+        for n in range(5):
+            keys+=chr(0x00)
+        return keys
+
 class CAPapp():
     def __init__(self, **kwargs):
         self.bH = 30
@@ -70,33 +80,12 @@ class CAPapp():
         
         self.keyoff=HIDkey.off
         self.ctrl=HIDkey.mkKey(HIDkey.Ctrl, 0x00)
-
-        self.winm=""
-        self.winm+=chr(0x08)
-        self.winm+=chr(0x00)
-        self.winm+=chr(0x00)
-        self.ctrlX=""
-        self.ctrlX+=chr(0x01)
-        self.ctrlX+=chr(0x00)
-        self.ctrlX+=chr(0x1b)
-        self.ctrlC=""
-        self.ctrlC+=chr(0x01)
-        self.ctrlC+=chr(0x00)
-        self.ctrlC+=chr(0x06)
-        self.ctrlV=""
-        self.ctrlV+=chr(0x01)
-        self.ctrlV+=chr(0x00)
-        self.ctrlV+=chr(0x19)
-        self.keyVw=""
-        self.keyVw+=chr(0x08)
-        self.keyVw+=chr(0x00)
-        self.keyVw+=chr(0x19)
-        for n in range(5):
-            self.winm+=chr(0x00)
-            self.ctrlV+=chr(0x00)
-            self.ctrlC+=chr(0x00)
-            self.ctrlX+=chr(0x00)
-            self.keyVw+=chr(0x00)
+        self.ctrlX=HIDkey.mkKeyChr(HIDkey.Ctrl, 'x')
+        self.ctrlC=HIDkey.mkKeyChr(HIDkey.Ctrl, 'c')
+        self.ctrlV=HIDkey.mkKeyChr(HIDkey.Ctrl, 'v')
+        self.ctrlZ=HIDkey.mkKeyChr(HIDkey.Ctrl, 'z')
+        self.keyVw=HIDkey.mkKeyChr(HIDkey.Meta, 'v')
+        self.winm=HIDkey.mkKey(HIDkey.Meta, 0x00)
 
     def cutBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
@@ -141,7 +130,7 @@ class CAPapp():
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
         time.sleep(0.1)
-        f.write(HIDkey.mkKey(HIDkey.Ctrl, 0x1d))
+        f.write(self.ctrlZ)
         time.sleep(0.2)
         f.write(self.ctrl)
         time.sleep(0.1)
