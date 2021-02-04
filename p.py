@@ -27,7 +27,7 @@ class HIDkey():
 
 class CAPapp():
     def __init__(self, **kwargs):
-        self.bH = 35
+        self.bH = 30
         self.root = tkinter.Tk()
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0,weight=1)
@@ -56,11 +56,17 @@ class CAPapp():
                 )
         self.pasteBtn.grid(row=2,column=0, ipady=self.bH, ipadx=10)
         
+        self.undotBtn = ttk.Button(
+                self.frame, text="Undo", width=40,
+                command=self.undotBtn_clicked
+                )
+        self.undotBtn.grid(row=3,column=0, ipady=self.bH, ipadx=10)
+
         self.cblistBtn = ttk.Button(
                 self.frame, text="Clip List", width=40,
                 command=self.cblistBtn_clicked
                 )
-        self.cblistBtn.grid(row=3,column=0, ipady=self.bH, ipadx=10)
+        self.cblistBtn.grid(row=4,column=0, ipady=self.bH, ipadx=10)
         
         self.keyoff=HIDkey.off
         self.ctrl=HIDkey.mkKey(HIDkey.Ctrl, 0x00)
@@ -95,9 +101,11 @@ class CAPapp():
     def cutBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
+        time.sleep(0.1)
         f.write(self.ctrlX)
         time.sleep(0.2)
         f.write(self.ctrl)
+        time.sleep(0.1)
         f.write(self.keyoff)
         f.write(self.keyoff)
         f.write(self.keyoff)
@@ -106,9 +114,11 @@ class CAPapp():
     def copyBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
+        time.sleep(0.1)
         f.write(self.ctrlC)
         time.sleep(0.2)
         f.write(self.ctrl)
+        time.sleep(0.1)
         f.write(self.keyoff)
         f.write(self.keyoff)
         f.write(self.keyoff)
@@ -117,9 +127,24 @@ class CAPapp():
     def pasteBtn_clicked(self):
       with open('/dev/hidg0', 'w') as f:
         f.write(self.ctrl)
+        time.sleep(0.1)
         f.write(self.ctrlV)
         time.sleep(0.2)
         f.write(self.ctrl)
+        time.sleep(0.1)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+        f.write(self.keyoff)
+
+    def undoBtn_clicked(self):
+      with open('/dev/hidg0', 'w') as f:
+        f.write(self.ctrl)
+        time.sleep(0.1)
+        f.write(self.ctrlV)
+        time.sleep(0.2)
+        f.write(self.ctrl)
+        time.sleep(0.1)
         f.write(self.keyoff)
         f.write(self.keyoff)
         f.write(self.keyoff)
@@ -132,6 +157,7 @@ class CAPapp():
         f.write(self.keyVw)
         time.sleep(0.2)
         f.write(self.winm)
+        time.sleep(0.1)
         f.write(self.keyoff)
         f.write(self.keyoff)
         f.write(self.keyoff)
