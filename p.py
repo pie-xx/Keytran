@@ -2,10 +2,28 @@
 # -*- coding: utf8 -*-
 import tkinter
 from tkinter import ttk
-from tkinter import filedialog
 import numpy
 from PIL import Image, ImageTk
 import time
+
+class HIDkey():
+    Ctrl = 0x01
+    Shift = 0x02
+    Alt = 0x04
+    Meta = 0x08
+
+    off=""
+    for n in range(8):
+        off+=chr(0x00)
+
+    def mkKey( mod, key ):
+        keys = ""
+        keys += chr(mod)
+        keys += chr(0x00)
+        keys += chr(key)
+        for n in range(5):
+            keys+=chr(0x00)
+        return keys
 
 class CAPapp():
     def __init__(self, **kwargs):
@@ -18,12 +36,7 @@ class CAPapp():
         self.frame.columnconfigure(0,weight=1)
         self.frame.rowconfigure(0,weight=1)
         self.frame.grid(sticky=(tkinter.N,tkinter.W,tkinter.S,tkinter.E))
-        """
-        self.fbar=ttk.Frame(self.frame,padding=4)
-        self.fbar.columnconfigure(0,weight=1)
-        self.fbar.rowconfigure(0,weight=1)
-        self.fbar.grid(sticky=(tkinter.N,tkinter.W,tkinter.S,tkinter.E))
-        """
+
         self.cutBtn = ttk.Button(
                 self.frame, text="Cut", width=40,
                 command=self.cutBtn_clicked
@@ -48,10 +61,8 @@ class CAPapp():
                 )
         self.cblistBtn.grid(row=3,column=0, ipady=20, ipadx=10)
         
-        self.keyoff=""
-        self.keyoff+=chr(0x00)
-        self.keyoff+=chr(0x00)
-        self.keyoff+=chr(0x00)
+        self.keyoff=HIDkey.off
+        
         self.ctrl=""
         self.ctrl+=chr(0x01)
         self.ctrl+=chr(0x00)
