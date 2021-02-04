@@ -63,7 +63,6 @@ class CAPapp():
         self.cblistBtn.grid(row=3,column=0, ipady=self.bH, ipadx=10)
         
         self.keyoff=HIDkey.off
-        
         self.ctrl=HIDkey.mkKey(HIDkey.Ctrl, 0x00)
 
         self.winm=""
@@ -87,7 +86,6 @@ class CAPapp():
         self.keyVw+=chr(0x00)
         self.keyVw+=chr(0x19)
         for n in range(5):
-            self.ctrl+=chr(0x00)
             self.winm+=chr(0x00)
             self.ctrlV+=chr(0x00)
             self.ctrlC+=chr(0x00)
