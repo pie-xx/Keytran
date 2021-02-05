@@ -87,71 +87,47 @@ class CAPapp():
         self.keyVw=HIDkey.mkKeyChr(HIDkey.Meta, 'v')
         self.winm=HIDkey.mkKey(HIDkey.Meta, 0x00)
 
+    def putKey(self, mod, c):
+        with open('/dev/hidg0', 'w') as f:
+            f.write(HIDkey.mkKey(mod, 0))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKey(mod, 0))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKey(mod, 0))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKeyChr(mod, c))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKeyChr(mod, c))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKeyChr(mod, c))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKey(mod, 0))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKey(mod, 0))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKey(mod, 0))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKey(0, 0))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKey(0, 0))
+            time.sleep(0.05)
+            f.write(HIDkey.mkKey(0, 0))
+            time.sleep(0.05)
+
     def cutBtn_clicked(self):
-      with open('/dev/hidg0', 'w') as f:
-        f.write(self.ctrl)
-        time.sleep(0.1)
-        f.write(self.ctrlX)
-        time.sleep(0.2)
-        f.write(self.ctrl)
-        time.sleep(0.1)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
+        self.putKey( HIDkey.Ctrl, 'x')
 
     def copyBtn_clicked(self):
-      with open('/dev/hidg0', 'w') as f:
-        f.write(self.ctrl)
-        time.sleep(0.1)
-        f.write(self.ctrlC)
-        time.sleep(0.2)
-        f.write(self.ctrl)
-        time.sleep(0.1)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
+        self.putKey( HIDkey.Ctrl, 'c')
 
     def pasteBtn_clicked(self):
-      with open('/dev/hidg0', 'w') as f:
-        f.write(self.ctrl)
-        time.sleep(0.1)
-        f.write(self.ctrlV)
-        time.sleep(0.2)
-        f.write(self.ctrl)
-        time.sleep(0.1)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
+        self.putKey( HIDkey.Ctrl, 'v')
 
     def undoBtn_clicked(self):
-      with open('/dev/hidg0', 'w') as f:
-        f.write(self.ctrl)
-        time.sleep(0.1)
-        f.write(self.ctrlZ)
-        time.sleep(0.2)
-        f.write(self.ctrl)
-        time.sleep(0.1)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
+        self.putKey( HIDkey.Ctrl, 'z')
         
     def cblistBtn_clicked(self):
-      with open('/dev/hidg0', 'w') as f:
-        f.write(self.winm)
-        time.sleep(0.1)
-        f.write(self.keyVw)
-        time.sleep(0.2)
-        f.write(self.winm)
-        time.sleep(0.1)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
-        f.write(self.keyoff)
+        self.putKey( HIDkey.Meta, 'v')
 
     def run(self):
         self.root.mainloop()
