@@ -78,17 +78,9 @@ class CAPapp():
                 )
         self.cblistBtn.grid(row=4,column=0, ipady=self.bH, ipadx=10)
         
-        self.keyoff=HIDkey.off
-        self.ctrl=HIDkey.mkKey(HIDkey.Ctrl, 0x00)
-        self.ctrlX=HIDkey.mkKeyChr(HIDkey.Ctrl, 'x')
-        self.ctrlC=HIDkey.mkKeyChr(HIDkey.Ctrl, 'c')
-        self.ctrlV=HIDkey.mkKeyChr(HIDkey.Ctrl, 'v')
-        self.ctrlZ=HIDkey.mkKeyChr(HIDkey.Ctrl, 'z')
-        self.keyVw=HIDkey.mkKeyChr(HIDkey.Meta, 'v')
-        self.winm=HIDkey.mkKey(HIDkey.Meta, 0x00)
 
     def putKey(self, mod, c):
-        wait=0.01
+        wait=0.02
         with open('/dev/hidg0', 'w') as f:
             f.write(HIDkey.mkKey(mod, 0))
             time.sleep(wait)
@@ -112,7 +104,17 @@ class CAPapp():
         self.putKey( HIDkey.Ctrl, 'z')
         
     def cblistBtn_clicked(self):
-        self.putKey( HIDkey.Meta, 'v')
+        self.putKey( HIDkey.Shift, 'h')
+        self.putKey( 0, 'e')
+        self.putKey( 0, 'l')
+        self.putKey( 0, 'l')
+        self.putKey( 0, 'o')
+        self.putKey( 0, ' ')
+        self.putKey( HIDkey.Shift, 'w')
+        self.putKey( 0, 'o')
+        self.putKey( 0, 'r')
+        self.putKey( 0, 'l')
+        self.putKey( 0, 'd')
 
     def run(self):
         self.root.mainloop()
