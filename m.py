@@ -106,20 +106,16 @@ class CAPapp():
             time.sleep(wait)
 
     def moveMouse(self, x, y ):
-        with open('/dev/hidg0', 'w') as f:
-            mpac=""
-            mpac+=chr(0x00)
-            mpac+=chr(x)
-            mpac+=chr(y)
-            f.write(mpac)
+        with open('/dev/hidg0', 'wb') as f:
+            f.write(0)
+            f.write(x)
+            f.write(y)
             
     def clickMouse(self, b ):
-        with open('/dev/hidg0', 'w') as f:
-            mpac=""
-            mpac+=chr(b)
-            mpac+=chr(0)
-            mpac+=chr(0)
-            f.write(mpac)
+        with open('/dev/hidg0', 'wb') as f:
+            f.write(b)
+            f.write(0)
+            f.write(0)
             
     def upBtn_clicked(self):
         self.moveMouse( 0, -10 )
