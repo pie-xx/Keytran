@@ -38,7 +38,7 @@ class HIDkey():
 class CAPapp():
     def __init__(self, **kwargs):
         self.bH = 30
-        self.bW = 20
+        self.bW = 10
         
         self.root = tkinter.Tk()
         self.root.columnconfigure(0, weight=1)
@@ -80,6 +80,12 @@ class CAPapp():
                 )
         self.LBtn.grid(row=0,column=0, ipady=self.bH, ipadx=10)
         
+        self.MBtn = ttk.Button(
+                self.frame, text="M", width=self.bW,
+                command=self.MBtn_clicked
+                )
+        self.MBtn.grid(row=0,column=1, ipady=self.bH, ipadx=10)
+        
         self.RBtn = ttk.Button(
                 self.frame, text="R", width=self.bW,
                 command=self.RBtn_clicked
@@ -103,27 +109,41 @@ class CAPapp():
         with open('/dev/hidg0', 'w') as f:
             mpac=""
             mpac+=chr(0x00)
-            mpac+=chr(x-128)
-            mpac+=chr(y-128)
+            mpac+=chr(x)
+            mpac+=chr(y)
+            f.write(mpac)
+            
+    def clickMouse(self, b ):
+        with open('/dev/hidg0', 'w') as f:
+            mpac=""
+            mpac+=chr(b)
+            mpac+=chr(0)
+            mpac+=chr(0)
             f.write(mpac)
             
     def upBtn_clicked(self):
         self.moveMouse( 0, 10 )
 
     def downBtn_clicked(self):
-        self.moveMouse( 0, -10 )
+        self.moveMouse( 0, 256-10 )
 
     def leftBtn_clicked(self):
-        self.moveMouse( -10, 0 )
+        self.moveMouse( 256-10, 0 )
 
     def rightBtn_clicked(self):
         self.moveMouse( 10, 0 )
         
     def LBtn_clicked(self):
-        self.moveMouse( 10, 0 )
+        self.clickMouse( 1 )
+        self.clickMouse( 0 )
+        
+    def MBtn_clicked(self):
+        self.clickMouse( 2 )
+        self.clickMouse( 0 )
         
     def RBtn_clicked(self):
-        self.moveMouse( 10, 0 )
+        self.clickMouse( 4 )
+        self.clickMouse( 0 )
         
 
     def run(self):
