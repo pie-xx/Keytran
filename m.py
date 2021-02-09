@@ -122,13 +122,13 @@ class CAPapp():
             f.write(mpac)
             
     def upBtn_clicked(self):
-        self.moveMouse( 0, 10 )
+        self.moveMouse( 0, -10 )
 
     def downBtn_clicked(self):
-        self.moveMouse( 0, 256-10 )
+        self.moveMouse( 0, 10 )
 
     def leftBtn_clicked(self):
-        self.moveMouse( 256-10, 0 )
+        self.moveMouse( -10, 0 )
 
     def rightBtn_clicked(self):
         self.moveMouse( 10, 0 )
@@ -138,11 +138,11 @@ class CAPapp():
         self.clickMouse( 0 )
         
     def MBtn_clicked(self):
-        self.clickMouse( 2 )
+        self.clickMouse( 4 )
         self.clickMouse( 0 )
         
     def RBtn_clicked(self):
-        self.clickMouse( 4 )
+        self.clickMouse( 2 )
         self.clickMouse( 0 )
         
 
