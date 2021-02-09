@@ -107,15 +107,15 @@ class CAPapp():
 
     def moveMouse(self, x, y ):
         with open('/dev/hidg0', 'wb') as f:
-            f.write(0)
-            f.write(x)
-            f.write(y)
+            f.write(b'\x00')
+            f.write(x.to_bytes(1, byteorder="little", signed=True))
+            f.write(y.to_bytes(1, byteorder="little", signed=True))
             
     def clickMouse(self, b ):
         with open('/dev/hidg0', 'wb') as f:
-            f.write(b)
-            f.write(0)
-            f.write(0)
+            f.write(b.to_bytes(1, byteorder="little"))
+            f.write(b'\x00')
+            f.write(b'\x00')
             
     def upBtn_clicked(self):
         self.moveMouse( 0, -10 )
