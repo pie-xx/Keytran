@@ -92,6 +92,12 @@ class CAPapp():
                 )
         self.RBtn.grid(row=0,column=2, ipady=self.bH, ipadx=10)
         
+        self.ABtn = ttk.Button(
+                self.frame, text="A", width=self.bW,
+                command=self.ABtn_clicked
+                )
+        self.ABtn.grid(row=0,column=0, ipady=self.bH, ipadx=10)
+   
 
     def putKey(self, mod, c):
         wait=0.02
@@ -141,6 +147,10 @@ class CAPapp():
         self.clickMouse( 2 )
         self.clickMouse( 0 )
         
+    def ABtn_clicked(self):
+        self.moveMouse( 1, 0 )
+        self.moveMouse( -1, 0 )
+        self.root.after(180000, self.ABtn_clicked)
 
     def run(self):
         self.root.mainloop()
