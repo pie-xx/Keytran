@@ -96,7 +96,7 @@ class CAPapp():
                 self.frame, text="A", width=self.bW,
                 command=self.ABtn_clicked
                 )
-        self.ABtn.grid(row=0,column=0, ipady=self.bH, ipadx=10)
+        self.ABtn.grid(row=1,column=0, ipady=self.bH/2, ipadx=10)
    
 
     def putKey(self, mod, c):
