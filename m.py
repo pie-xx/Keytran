@@ -74,8 +74,10 @@ class CAPapp():
                 )
         self.rightBtn.grid(row=3,column=2, ipady=self.bH, ipadx=10)
 
+        self.LBtnText = tkinter.StringVar()
+        self.LBtnText.set("L")
         self.LBtn = ttk.Button(
-                self.frame, text="L", width=self.bW,
+                self.frame, textvariable=self.LBtnText, width=self.bW,
                 command=self.LBtn_clicked
                 )
         self.LBtn.grid(row=0,column=0, ipady=self.bH, ipadx=10)
@@ -86,17 +88,24 @@ class CAPapp():
                 )
         self.MBtn.grid(row=0,column=1, ipady=self.bH, ipadx=10)
         
+        self.RBtnText = tkinter.StringVar()
+        self.RBtnText.set("R")
         self.RBtn = ttk.Button(
-                self.frame, text="R", width=self.bW,
+                self.frame, textvariable=self.RBtnText, width=self.bW,
                 command=self.RBtn_clicked
                 )
         self.RBtn.grid(row=0,column=2, ipady=self.bH, ipadx=10)
+
+        self.ABtnText = tkinter.StringVar()
+        self.ABtnText.set("a")
         
         self.ABtn = ttk.Button(
-                self.frame, text="A", width=self.bW,
+                self.frame, textvariable=self.ABtnText, width=self.bW,
                 command=self.ABtn_clicked
                 )
         self.ABtn.grid(row=1,column=0, ipady=self.bH/2, ipadx=10)
+
+        self.btnstat = 0
    
 
     def putKey(self, mod, c):
@@ -113,7 +122,7 @@ class CAPapp():
 
     def moveMouse(self, x, y ):
         with open('/dev/hidg0', 'wb') as f:
-            f.write(b'\x00')
+            f.write(self.btnstat.to_bytes(1, byteorder="little", signed=True))
             f.write(x.to_bytes(1, byteorder="little", signed=True))
             f.write(y.to_bytes(1, byteorder="little", signed=True))
             
@@ -136,16 +145,29 @@ class CAPapp():
         self.moveMouse( 10, 0 )
         
     def LBtn_clicked(self):
-        self.clickMouse( 1 )
-        self.clickMouse( 0 )
+        if(self.LBtnText.get()=="L"):
+            self.LBtnText.set("L*")
+            self.clickMouse( 1 )
+            self.btnstat =1
+        else:
+            self.LBtnText.set("L")
+            self.clickMouse( 0 )
+            self.btnstat =0
         
     def MBtn_clicked(self):
         self.clickMouse( 4 )
         self.clickMouse( 0 )
+        self.btnstat =0
         
     def RBtn_clicked(self):
-        self.clickMouse( 2 )
-        self.clickMouse( 0 )
+        if(self.RBtnText.get()=="R"):
+            self.RBtnText.set("R*")
+            self.clickMouse( 2 )
+            self.btnstat =2
+        else:
+            self.RBtnText.set("R")
+            self.clickMouse( 0 )
+            self.btnstat =0
         
     def ABtn_clicked(self):
         self.moveMouse( 1, 0 )
