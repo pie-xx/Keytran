@@ -50,27 +50,31 @@ class CAPapp():
         self.frame.rowconfigure(0,weight=1)
         self.frame.grid(sticky=(tkinter.N,tkinter.W,tkinter.S,tkinter.E))
 
-        self.upBtn = ttk.Button(
+        self.upBtn = tkinter.Button(
                 self.frame, text="↑", width=self.bW,
-                command=self.upBtn_clicked
+                command=self.upBtn_clicked,
+                repeatdelay=500, repeatinterval=200
                 )
         self.upBtn.grid(row=2,column=1, ipady=self.bH, ipadx=10)
 
-        self.downBtn = ttk.Button(
+        self.downBtn = tkinter.Button(
                 self.frame, text="↓", width=self.bW,
-                command=self.downBtn_clicked
+                command=self.downBtn_clicked,
+                repeatdelay=500, repeatinterval=200
                 )
         self.downBtn.grid(row=4,column=1, ipady=self.bH, ipadx=10)
         
-        self.leftBtn = ttk.Button(
+        self.leftBtn = tkinter.Button(
                 self.frame, text="←", width=self.bW,
-                command=self.leftBtn_clicked
+                command=self.leftBtn_clicked,
+                repeatdelay=500, repeatinterval=200
                 )
         self.leftBtn.grid(row=3,column=0, ipady=self.bH, ipadx=10)
         
-        self.rightBtn = ttk.Button(
+        self.rightBtn = tkinter.Button(
                 self.frame, text="→", width=self.bW,
-                command=self.rightBtn_clicked
+                command=self.rightBtn_clicked,
+                repeatdelay=500, repeatinterval=200
                 )
         self.rightBtn.grid(row=3,column=2, ipady=self.bH, ipadx=10)
 
@@ -133,16 +137,16 @@ class CAPapp():
             f.write(b'\x00')
             
     def upBtn_clicked(self):
-        self.moveMouse( 0, -10 )
+        self.moveMouse( 0, -1 )
 
     def downBtn_clicked(self):
-        self.moveMouse( 0, 10 )
+        self.moveMouse( 0, 1 )
 
     def leftBtn_clicked(self):
-        self.moveMouse( -10, 0 )
+        self.moveMouse( -1, 0 )
 
     def rightBtn_clicked(self):
-        self.moveMouse( 10, 0 )
+        self.moveMouse( 1, 0 )
         
     def LBtn_clicked(self):
         if(self.LBtnText.get()=="L"):
