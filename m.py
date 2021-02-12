@@ -84,13 +84,13 @@ class CAPapp():
                 self.frame, textvariable=self.LBtnText, width=self.bW,
                 command=self.LBtn_clicked
                 )
-        self.LBtn.grid(row=0,column=0, ipady=self.bH, ipadx=10)
+        self.LBtn.grid(row=1,column=0, ipady=self.bH, ipadx=10)
         
-        self.MBtn = ttk.Button(
+        self.MBtn = tkinter.Button(
                 self.frame, text="M", width=self.bW,
-                command=self.MBtn_clicked
+                command=self.MBtn_clicked, repeatdelay=500, repeatinterval=200
                 )
-        self.MBtn.grid(row=0,column=1, ipady=self.bH, ipadx=10)
+        self.MBtn.grid(row=1,column=1, ipady=self.bH, ipadx=10)
         
         self.RBtnText = tkinter.StringVar()
         self.RBtnText.set("R")
@@ -98,7 +98,7 @@ class CAPapp():
                 self.frame, textvariable=self.RBtnText, width=self.bW,
                 command=self.RBtn_clicked
                 )
-        self.RBtn.grid(row=0,column=2, ipady=self.bH, ipadx=10)
+        self.RBtn.grid(row=1,column=2, ipady=self.bH, ipadx=10)
 
         self.ABtnText = tkinter.StringVar()
         self.ABtnText.set("a")
@@ -107,9 +107,11 @@ class CAPapp():
                 self.frame, textvariable=self.ABtnText, width=self.bW,
                 command=self.ABtn_clicked
                 )
-        self.ABtn.grid(row=1,column=0, ipady=self.bH/2, ipadx=10)
+        self.ABtn.grid(row=0,column=0, ipady=self.bH/2, ipadx=10)
 
         self.btnstat = 0
+
+        self.ABtnAfter = 0
    
 
     def putKey(self, mod, c):
@@ -159,9 +161,10 @@ class CAPapp():
             self.btnstat =0
         
     def MBtn_clicked(self):
-        self.clickMouse( 4 )
-        self.clickMouse( 0 )
-        self.btnstat =0
+        print(self.MBtn.stat)
+        #self.clickMouse( 4 )
+        #self.clickMouse( 0 )
+        #self.btnstat =0
         
     def RBtn_clicked(self):
         if(self.RBtnText.get()=="R"):
@@ -174,10 +177,24 @@ class CAPapp():
             self.btnstat =0
         
     def ABtn_clicked(self):
+        if(self.ABtnAfter != 0):
+            self.ABtnText.set("a")
+            self.root.after_cancel( self.ABtnAfter )
+            self.ABtnAfter = 0
+            self.ABtn.config(fg="gray")
+        else:
+            self.ABtnText.set("A")
+            self.ABtn.config(fg="red")
+            self.wakeScr()
+
+    def wakeScr(self):
+        self.ABtnAfter = self.root.after(180000, self.wakeScr)
         self.moveMouse( 1, 0 )
         self.moveMouse( -1, 0 )
-        self.root.after(180000, self.ABtn_clicked)
-
+        with open('/dev/hidg1', 'w') as f:
+            f.write(HIDkey.mkKey(HIDkey.Ctrl, 0))
+            f.write(HIDkey.mkKey(0, 0))
+            
     def run(self):
         self.root.mainloop()
 
