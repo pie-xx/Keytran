@@ -197,7 +197,7 @@ class CAPapp():
         self.hid.moveMouse( 1, 0 )
         self.hid.moveMouse( -1, 0 )
         with open('/dev/hidg1', 'w') as f:
-            f.write(HIDdev.mkKey(HIDkey.Ctrl, 0))
+            f.write(HIDdev.mkKey(HIDdev.Ctrl, 0))
             f.write(HIDdev.mkKey(0, 0))
             
     def run(self):
