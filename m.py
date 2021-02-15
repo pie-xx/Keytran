@@ -6,15 +6,15 @@ import numpy
 from PIL import Image, ImageTk
 import time
 
-class HIDkey():
+class HIDdev():
     Ctrl = 0x01
     Shift = 0x02
     Alt = 0x04
     Meta = 0x08
 
-    off=""
-    for n in range(8):
-        off+=chr(0x00)
+    def __init__(self, **kwargs):
+        self.btnstat = 0;
+        pass
 
     def mkKey( mod, key ):
         keys = ""
@@ -35,10 +35,39 @@ class HIDkey():
             keys+=chr(0x00)
         return keys
 
+    def putKeyChr(self, mod, c):
+        HIDdev.putKey( mod, ord(c) - ord('a') + 4 )
+    
+    def putKey(self, mod, c):
+        wait=0.02
+        with open('/dev/hidg1', 'w') as f:
+            f.write(HIDkey.mkKey(mod, 0))
+            time.sleep(wait)
+            f.write(HIDkey.mkKey(mod, c))
+            time.sleep(wait)
+            f.write(HIDkey.mkKey(mod, 0))
+            time.sleep(wait)
+            f.write(HIDkey.mkKey(0, 0))
+            time.sleep(wait)
+
+    def moveMouse(self, x, y ):
+        with open('/dev/hidg0', 'wb') as f:
+            f.write(self.btnstat.to_bytes(1, byteorder="little", signed=True))
+            f.write(x.to_bytes(1, byteorder="little", signed=True))
+            f.write(y.to_bytes(1, byteorder="little", signed=True))
+            
+    def clickMouse(self, b ):
+        with open('/dev/hidg0', 'wb') as f:
+            f.write(b.to_bytes(1, byteorder="little"))
+            f.write(b'\x00')
+            f.write(b'\x00')
+
 class CAPapp():
     def __init__(self, **kwargs):
         self.bH = 30
         self.bW = 10
+
+        self.hid = HIDdev()
         
         self.root = tkinter.Tk()
         self.root.columnconfigure(0, weight=1)
@@ -88,7 +117,7 @@ class CAPapp():
         
         self.MBtn = tkinter.Button(
                 self.frame, text="M", width=self.bW,
-                command=self.MBtn_clicked, repeatdelay=500, repeatinterval=200
+                command=self.MBtn_clicked, repeatdelay=500, repeatinterval=500
                 )
         self.MBtn.grid(row=1,column=1, ipady=self.bH, ipadx=10)
         
@@ -114,50 +143,27 @@ class CAPapp():
         self.ABtnAfter = 0
    
 
-    def putKey(self, mod, c):
-        wait=0.02
-        with open('/dev/hidg1', 'w') as f:
-            f.write(HIDkey.mkKey(mod, 0))
-            time.sleep(wait)
-            f.write(HIDkey.mkKeyChr(mod, c))
-            time.sleep(wait)
-            f.write(HIDkey.mkKey(mod, 0))
-            time.sleep(wait)
-            f.write(HIDkey.mkKey(0, 0))
-            time.sleep(wait)
-
-    def moveMouse(self, x, y ):
-        with open('/dev/hidg0', 'wb') as f:
-            f.write(self.btnstat.to_bytes(1, byteorder="little", signed=True))
-            f.write(x.to_bytes(1, byteorder="little", signed=True))
-            f.write(y.to_bytes(1, byteorder="little", signed=True))
-            
-    def clickMouse(self, b ):
-        with open('/dev/hidg0', 'wb') as f:
-            f.write(b.to_bytes(1, byteorder="little"))
-            f.write(b'\x00')
-            f.write(b'\x00')
             
     def upBtn_clicked(self):
-        self.moveMouse( 0, -1 )
+        self.hid.moveMouse( 0, -1 )
 
     def downBtn_clicked(self):
-        self.moveMouse( 0, 1 )
+        self.hid.moveMouse( 0, 1 )
 
     def leftBtn_clicked(self):
-        self.moveMouse( -1, 0 )
+        self.hid.moveMouse( -1, 0 )
 
     def rightBtn_clicked(self):
-        self.moveMouse( 1, 0 )
+        self.hid.moveMouse( 1, 0 )
         
     def LBtn_clicked(self):
         if(self.LBtnText.get()=="L"):
             self.LBtnText.set("L*")
-            self.clickMouse( 1 )
+            self.hid.clickMouse( 1 )
             self.btnstat =1
         else:
             self.LBtnText.set("L")
-            self.clickMouse( 0 )
+            self.hid.clickMouse( 0 )
             self.btnstat =0
         
     def MBtn_clicked(self):
@@ -169,11 +175,11 @@ class CAPapp():
     def RBtn_clicked(self):
         if(self.RBtnText.get()=="R"):
             self.RBtnText.set("R*")
-            self.clickMouse( 2 )
+            self.hid.clickMouse( 2 )
             self.btnstat =2
         else:
             self.RBtnText.set("R")
-            self.clickMouse( 0 )
+            self.hid.clickMouse( 0 )
             self.btnstat =0
         
     def ABtn_clicked(self):
@@ -184,13 +190,12 @@ class CAPapp():
             self.ABtn.config(fg="gray")
         else:
             self.ABtnText.set("A")
-            self.ABtn.config(fg="red")
             self.wakeScr()
 
     def wakeScr(self):
         self.ABtnAfter = self.root.after(180000, self.wakeScr)
-        self.moveMouse( 1, 0 )
-        self.moveMouse( -1, 0 )
+        self.hid.moveMouse( 1, 0 )
+        self.hid.moveMouse( -1, 0 )
         with open('/dev/hidg1', 'w') as f:
             f.write(HIDkey.mkKey(HIDkey.Ctrl, 0))
             f.write(HIDkey.mkKey(0, 0))
