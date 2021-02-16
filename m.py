@@ -149,12 +149,12 @@ class CAPapp():
                 self.frame, textvariable=self.BBtnText, width=self.bW,
                 command=self.BBtn_clicked
                 )
-        self.BBtn.grid(row=0,column=0, ipady=self.bH/2, ipadx=10)
+        self.BBtn.grid(row=0,column=1, ipady=self.bH/2, ipadx=10)
         self.CBtn = tkinter.Button(
                 self.frame, textvariable=self.CBtnText, width=self.bW,
                 command=self.CBtn_clicked
                 )
-        self.CBtn.grid(row=0,column=0, ipady=self.bH/2, ipadx=10)
+        self.CBtn.grid(row=0,column=2, ipady=self.bH/2, ipadx=10)
 
         self.ABtnAfter = 0
         self.MBtnAfter = 0
