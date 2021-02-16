@@ -57,6 +57,7 @@ class HIDdev():
             f.write(y.to_bytes(1, byteorder="little", signed=True))
             
     def clickMouse(self, b ):
+        self.btnstat = b;
         with open('/dev/hidg0', 'wb') as f:
             f.write(b.to_bytes(1, byteorder="little"))
             f.write(b'\x00')
@@ -65,7 +66,7 @@ class HIDdev():
 class CAPapp():
     def __init__(self, **kwargs):
         self.bH = 30
-        self.bW = 10
+        self.bW = 7
 
         self.hid = HIDdev()
         
@@ -109,39 +110,44 @@ class CAPapp():
 
         self.LBtnText = tkinter.StringVar()
         self.LBtnText.set("L")
-        self.LBtn = ttk.Button(
+        self.LBtn = tkinter.Button(
                 self.frame, textvariable=self.LBtnText, width=self.bW,
-                command=self.LBtn_clicked
                 )
         self.LBtn.grid(row=1,column=0, ipady=self.bH, ipadx=10)
+        self.LBtn.bind("<ButtonPress-1>", self.LBtn_clicked)
+        self.LBtn.bind("<ButtonRelease-1>", self.LBtn_released)
         
         self.MBtn = tkinter.Button(
                 self.frame, text="M", width=self.bW,
-                command=self.MBtn_clicked, repeatdelay=500, repeatinterval=500
                 )
         self.MBtn.grid(row=1,column=1, ipady=self.bH, ipadx=10)
+        self.MBtn.bind("<ButtonPress-1>", self.MBtn_clicked)
+        self.MBtn.bind("<ButtonRelease-1>", self.MBtn_released)
         
         self.RBtnText = tkinter.StringVar()
         self.RBtnText.set("R")
-        self.RBtn = ttk.Button(
+        self.RBtn = tkinter.Button(
                 self.frame, textvariable=self.RBtnText, width=self.bW,
-                command=self.RBtn_clicked
                 )
         self.RBtn.grid(row=1,column=2, ipady=self.bH, ipadx=10)
+        self.RBtn.bind("<ButtonPress-1>", self.RBtn_clicked)
+        self.RBtn.bind("<ButtonRelease-1>", self.RBtn_released)
 
         self.ABtnText = tkinter.StringVar()
         self.ABtnText.set("a")
         
-        self.ABtn = ttk.Button(
+        self.ABtn = tkinter.Button(
                 self.frame, textvariable=self.ABtnText, width=self.bW,
                 command=self.ABtn_clicked
                 )
         self.ABtn.grid(row=0,column=0, ipady=self.bH/2, ipadx=10)
 
-        self.btnstat = 0
-
         self.ABtnAfter = 0
-   
+        self.MBtnAfter = 0
+        self.RBtnAfter = 0
+        self.LBtnAfter = 0
+        self.RBtnLong = False
+        self.LBtnLong = False
 
             
     def upBtn_clicked(self):
@@ -156,38 +162,75 @@ class CAPapp():
     def rightBtn_clicked(self):
         self.hid.moveMouse( 1, 0 )
         
-    def LBtn_clicked(self):
-        if(self.LBtnText.get()=="L"):
-            self.LBtnText.set("L*")
-            self.hid.clickMouse( 1 )
-            self.btnstat =1
-        else:
-            self.LBtnText.set("L")
-            self.hid.clickMouse( 0 )
-            self.btnstat =0
+    def LBtn_clicked(self, event):
+        self.LBtnAfter = self.root.after(1000, self.LBtn_longpressed)
+
+    def LBtn_released(self, event):
+        if( self.LBtnAfter != 0 ):
+            self.root.after_cancel( self.LBtnAfter )
+            if self.LBtnLong:
+                self.LBtnText.set("L")
+                print("LBtn_long pressed off")
+                self.hid.clickMouse(0)
+            else:
+                print("LBtn_clicked")
+                self.hid.clickMouse(1)
+                self.hid.clickMouse(0)
+            self.LBtnLong = False
+        self.LBtnAfter = 0
+
+
+    def LBtn_longpressed(self):
+        self.LBtnAfter = 0
+        print("LBtn_long pressed")
+        self.LBtnText.set("L*")
+        self.LBtnLong = True
+        self.hid.clickMouse(1)
         
-    def MBtn_clicked(self):
-        print(self.MBtn.stat)
-        #self.clickMouse( 4 )
-        #self.clickMouse( 0 )
-        #self.btnstat =0
+    def MBtn_clicked(self, event):
+        self.MBtnAfter = self.root.after(1000, self.MBtn_longpressed)
+
+    def MBtn_released(self, event):
+        if( self.MBtnAfter != 0 ):
+            print("MBtn_clicked")
+            self.root.after_cancel( self.MBtnAfter )
+        self.MBtnAfter = 0
+
+    def MBtn_longpressed(self):
+        self.MBtnAfter = 0
+        print("MBtn_long pressed")
+        pass
         
-    def RBtn_clicked(self):
-        if(self.RBtnText.get()=="R"):
-            self.RBtnText.set("R*")
-            self.hid.clickMouse( 2 )
-            self.btnstat =2
-        else:
-            self.RBtnText.set("R")
-            self.hid.clickMouse( 0 )
-            self.btnstat =0
+    def RBtn_clicked(self, event):
+        self.RBtnAfter = self.root.after(1000, self.RBtn_longpressed)
+
+    def RBtn_released(self, event):
+        if( self.RBtnAfter != 0 ):
+            self.root.after_cancel( self.RBtnAfter )
+            if self.RBtnLong:
+                self.RBtnText.set("R")
+                print("RBtn_long pressed off")
+                self.hid.clickMouse(0)
+            else:
+                print("RBtn_clicked")
+                self.hid.clickMouse(2)
+                self.hid.clickMouse(0)
+            self.RBtnLong = False
+        self.RBtnAfter = 0
+
+    def RBtn_longpressed(self):
+        self.RBtnAfter = 0
+        print("RBtn_long pressed")
+        self.RBtnText.set("R*")
+        self.RBtnLong = True
+        self.hid.clickMouse(2)
+        
         
     def ABtn_clicked(self):
         if(self.ABtnAfter != 0):
             self.ABtnText.set("a")
             self.root.after_cancel( self.ABtnAfter )
             self.ABtnAfter = 0
-            self.ABtn.config(fg="gray")
         else:
             self.ABtnText.set("A")
             self.wakeScr()
