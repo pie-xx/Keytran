@@ -135,12 +135,26 @@ class CAPapp():
 
         self.ABtnText = tkinter.StringVar()
         self.ABtnText.set("a")
+        self.BBtnText = tkinter.StringVar()
+        self.BBtnText.set("b")
+        self.CBtnText = tkinter.StringVar()
+        self.CBtnText.set("c")
         
         self.ABtn = tkinter.Button(
                 self.frame, textvariable=self.ABtnText, width=self.bW,
                 command=self.ABtn_clicked
                 )
         self.ABtn.grid(row=0,column=0, ipady=self.bH/2, ipadx=10)
+        self.BBtn = tkinter.Button(
+                self.frame, textvariable=self.BBtnText, width=self.bW,
+                command=self.BBtn_clicked
+                )
+        self.BBtn.grid(row=0,column=0, ipady=self.bH/2, ipadx=10)
+        self.CBtn = tkinter.Button(
+                self.frame, textvariable=self.CBtnText, width=self.bW,
+                command=self.CBtn_clicked
+                )
+        self.CBtn.grid(row=0,column=0, ipady=self.bH/2, ipadx=10)
 
         self.ABtnAfter = 0
         self.MBtnAfter = 0
@@ -242,6 +256,12 @@ class CAPapp():
         with open('/dev/hidg1', 'w') as f:
             f.write(HIDdev.mkKey(HIDdev.Ctrl, 0))
             f.write(HIDdev.mkKey(0, 0))
+            
+    def BBtn_clicked(self):
+        self.hid.putKey(HIDdev.Meta, 0x2e)
+            
+    def CBtn_clicked(self):
+        self.hid.putKey(HIDdev.Meta, 0x29)
             
     def run(self):
         self.root.mainloop()
