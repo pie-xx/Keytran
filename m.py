@@ -29,7 +29,7 @@ class HIDdev():
         key = ord(c) - ord('a') + 4
         keys = ""
         keys += chr(mod)
-        keys += chr(0x00)
+        keys += chr(0x00);
         keys += chr(key)
         for n in range(5):
             keys+=chr(0x00)
@@ -145,13 +145,17 @@ class CAPapp():
                 command=self.ABtn_clicked
                 )
         self.ABtn.grid(row=0,column=0, ipady=self.bH/2, ipadx=10)
+        
+        self.magon = tkinter.PhotoImage(file="magon100x100.png").subsample(2, 2)
         self.BBtn = tkinter.Button(
-                self.frame, textvariable=self.BBtnText, width=self.bW,
+                self.frame, textvariable=self.BBtnText, image=self.magon, width=70,
                 command=self.BBtn_clicked
                 )
         self.BBtn.grid(row=0,column=1, ipady=self.bH/2, ipadx=10)
+        
+        self.magoff = tkinter.PhotoImage(file="magoff100x100.png").subsample(2, 2)
         self.CBtn = tkinter.Button(
-                self.frame, textvariable=self.CBtnText, width=self.bW,
+                self.frame, textvariable=self.CBtnText, image=self.magoff, width=70,
                 command=self.CBtn_clicked
                 )
         self.CBtn.grid(row=0,column=2, ipady=self.bH/2, ipadx=10)
