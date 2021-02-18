@@ -262,7 +262,7 @@ class CAPapp():
             f.write(HIDdev.mkKey(0, 0))
             
     def BBtn_clicked(self):
-        self.hid.putKey(HIDdev.Meta, 0x2e)
+        self.hid.putKey(HIDdev.Meta, 0x33)
             
     def CBtn_clicked(self):
         self.hid.putKey(HIDdev.Meta, 0x29)
