@@ -146,14 +146,14 @@ class CAPapp():
                 )
         self.ABtn.grid(row=0,column=0, ipady=self.bH/2, ipadx=10)
         
-        self.magon = tkinter.PhotoImage(file="magon100x100.png").subsample(2, 2)
+        self.magon = tkinter.PhotoImage(file="/home/pi/Keytran/magon100x100.png").subsample(2, 2)
         self.BBtn = tkinter.Button(
                 self.frame, textvariable=self.BBtnText, image=self.magon, width=70,
                 command=self.BBtn_clicked
                 )
         self.BBtn.grid(row=0,column=1, ipady=self.bH/2, ipadx=10)
         
-        self.magoff = tkinter.PhotoImage(file="magoff100x100.png").subsample(2, 2)
+        self.magoff = tkinter.PhotoImage(file="/home/pi/Keytran/magoff100x100.png").subsample(2, 2)
         self.CBtn = tkinter.Button(
                 self.frame, textvariable=self.CBtnText, image=self.magoff, width=70,
                 command=self.CBtn_clicked
