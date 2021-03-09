@@ -1,4 +1,5 @@
 import sys
+import time
 
 class HIDkey():
     def __init__(self, **kwargs):
@@ -37,8 +38,11 @@ class HIDkey():
 
 Kt = HIDkey()
 for k in Kt.tran(sys.argv[1]):
+    kbuff = [k['mod'], 0, k['code'], 0,0,0,0,0]
+    offbuff = [0, 0, 0, 0,0,0,0,0]
+    wait=0.02
     with open('/dev/hidg1', 'wb') as f:
-        kbuff = [k['mod'], 0, k['code'], 0,0,0,0,0]
-        offbuff = [0, 0, 0, 0,0,0,0,0]
         f.write( bytes(kbuff) )
+        time.sleep(wait)
         f.write( bytes(offbuff) )
+        time.sleep(wait)
