@@ -38,11 +38,7 @@ class HIDkey():
 Kt = HIDkey()
 for k in Kt.tran(sys.argv[1]):
     with open('/dev/hidg1', 'wb') as f:
-        f.write( bytes([k['mod']]) )
-        f.write( 0 )
-        f.write( bytes([k['code']]) )
-        for i in range(5):
-            f.write( 0 )
-        for i in range(8):
-            f.write( 0 )
-
+        kbuff = [k['mod'], 0, k['code'], 0,0,0,0,0]
+        offbuff = [0, 0, 0, 0,0,0,0,0]
+        f.write( bytes(kbuff) )
+        f.write( bytes(offbuff) )
