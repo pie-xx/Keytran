@@ -1,7 +1,4 @@
 import sys
-import tkinter
-from tkinter import ttk
-import paramiko
 
 class HIDkey():
     def __init__(self, **kwargs):
