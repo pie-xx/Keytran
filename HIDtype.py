@@ -36,15 +36,10 @@ class HIDkey():
                 rtn.append(self.KT[' '])
         return rtn
 
+offbuff = bytes([0,0,0,0,0,0,0,0])
 Kt = HIDkey()
 for k in Kt.tran(sys.argv[1]):
-    kbuff = [k['mod'], 0, k['code'], 0,0,0,0,0]
-    offbuff = [0, 0, 0, 0,0,0,0,0]
-    wait=0.02
+    kbuff = bytes([k['mod'], 0, k['code'], 0,0,0,0,0])
     with open('/dev/hidg1', 'wb') as f:
-        b = bytes(kbuff)
-        f.write( b )
-        time.sleep(wait)
-        b = bytes(offbuff)
-        f.write( b )
-        time.sleep(wait)
+        f.write( kbuff )
+        f.write( offbuff )
