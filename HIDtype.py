@@ -42,7 +42,9 @@ for k in Kt.tran(sys.argv[1]):
     offbuff = [0, 0, 0, 0,0,0,0,0]
     wait=0.02
     with open('/dev/hidg1', 'wb') as f:
-        f.write( bytes(kbuff) )
+        b = bytes(kbuff)
+        f.write( b )
         time.sleep(wait)
-        f.write( bytes(offbuff) )
+        b = bytes(offbuff)
+        f.write( b )
         time.sleep(wait)
