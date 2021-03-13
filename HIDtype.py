@@ -16,6 +16,8 @@ class HIDkey():
         self.hidseq(ord(','),ord(','),54,0)
         self.hidseq(ord('.'),ord('.'),55,0)
         self.hidseq(ord('/'),ord('/'),56,0)
+        self.hidseq(ord('?'),ord('?'),56,0)
+        self.hidseq(ord('\\'),ord('\\'),135,0)
 
         self.hidseq(ord('0'),ord('0'),39,0)
         self.hidseq(ord('1'),ord('9'),30,0)
@@ -24,9 +26,9 @@ class HIDkey():
         self.hidseq(ord('A'),ord('Z'),4,SHIFT)
 
         self.hidseq(ord('!'),ord('!'),30,SHIFT)
-        self.hidseq(ord('"'),ord('"'),31,SHIFT)
+        #self.hidseq(ord('"'),ord('"'),31,SHIFT)
         self.hidseq(ord('#'),ord('#'),32,SHIFT)
-        self.hidseq(ord('$'),ord('$'),33,SHIFT)
+        #self.hidseq(ord('$'),ord('$'),33,SHIFT)
         self.hidseq(ord('%'),ord('%'),34,SHIFT)
         self.hidseq(ord('&'),ord('&'),35,SHIFT)
         self.hidseq(ord("'"),ord("'"),36,SHIFT)
@@ -44,6 +46,7 @@ class HIDkey():
         self.hidseq(ord('<'),ord('<'),54,SHIFT)
         self.hidseq(ord('>'),ord('>'),55,SHIFT)
         self.hidseq(ord('?'),ord('?'),56,SHIFT)
+        self.hidseq(ord('_'),ord('_'),135,SHIFT)
 
 
     def hidseq(self, ascSt, ascEn, hidSt, mod):
