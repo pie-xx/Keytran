@@ -2,6 +2,7 @@ import tkinter
 from tkinter import ttk
 import paramiko
 import time
+import json
 
 class HIDkey():
     def __init__(self, **kwargs):
@@ -41,6 +42,12 @@ class HIDkey():
 
 class sshInput():
     def __init__(self, **kwargs):
+        with open("pref.json") as f:
+            pf = json.load(f)
+            self.host = pf["host"]
+            self.user = pf["user"]
+            self.passwd = pf["pass"]
+
         self.root = tkinter.Tk()
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0,weight=1)
@@ -68,23 +75,9 @@ class sshInput():
         self.put_ssh(inputtext)
 
     def put_ssh(self, inputtext):
-        """
         with paramiko.SSHClient() as ssh:
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            ssh.connect('192.168.10.16', port=22, username='pi', password='383838')
-            rtn = self.hidKT.tran( inputtext )
-            for kptn in rtn:
-                mod=0
-                if kptn['mod'] == "SHIFT":
-                    mod = 2
-                stdin, stdout, stderr = ssh.exec_command('echo -ne "\\x{mod:x}\\0\\x{code:x}\\0\\0\\0\\0\\0" >/dev/hidg1'.format(mod=mod,code=kptn['code']))
-                stdin, stdout, stderr = ssh.exec_command('echo -ne "\\0\\0\\0\\0\\0\\0\\0\\0" >/dev/hidg1')
-                stdin, stdout, stderr = ssh.exec_command('echo -ne "\\x{mod:x}\\0\\x{code:x}\\0\\0\\0\\0\\0" >/home/pi/a.txt'.format(mod=mod,code=kptn['code']))
-
-        """
-        with paramiko.SSHClient() as ssh:
-            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            ssh.connect('192.168.10.16', port=22, username='pi', password='383838')
+            ssh.connect(self.host, port=22, username=self.user, password=self.passwd)
             stdin, stdout, stderr = ssh.exec_command('sudo python3 /home/pi/Keytran/HIDtype.py "{}"'.format(inputtext))
 
     def run(self):
