@@ -7,12 +7,15 @@ class HIDkey():
         self.KT= {}
         self.hidseq(ord(' '),ord(' '),44,0)
         self.hidseq(ord('-'),ord('-'),45,0)
-        self.hidseq(ord('='),ord('='),46,0)
-        self.hidseq(ord('['),ord('['),47,0)
-        self.hidseq(ord(']'),ord(']'),48,0)
-        self.hidseq(ord('\\'),ord('\\'),49,0)
-        self.hidseq(ord('#'),ord('#'),50,0)
-        self.hidseq(ord(':'),ord(':'),51,0)
+        self.hidseq(ord('^'),ord('^'),46,0)
+        self.hidseq(ord('@'),ord('@'),47,0)
+        self.hidseq(ord('['),ord('['),48,0)
+        self.hidseq(ord(']'),ord(']'),49,0)
+        self.hidseq(ord(';'),ord(';'),51,0)
+        self.hidseq(ord(':'),ord(':'),52,0)
+        self.hidseq(ord(','),ord(','),54,0)
+        self.hidseq(ord('.'),ord('.'),55,0)
+        self.hidseq(ord('/'),ord('/'),56,0)
 
         self.hidseq(ord('0'),ord('0'),39,0)
         self.hidseq(ord('1'),ord('9'),30,0)
@@ -20,7 +23,28 @@ class HIDkey():
         self.hidseq(ord('a'),ord('z'),4,0)
         self.hidseq(ord('A'),ord('Z'),4,SHIFT)
 
-        self.hidseq(ord('!'),40,30,SHIFT)
+        self.hidseq(ord('!'),ord('!'),30,SHIFT)
+        self.hidseq(ord('"'),ord('"'),31,SHIFT)
+        self.hidseq(ord('#'),ord('#'),32,SHIFT)
+        self.hidseq(ord('$'),ord('$'),33,SHIFT)
+        self.hidseq(ord('%'),ord('%'),34,SHIFT)
+        self.hidseq(ord('&'),ord('&'),35,SHIFT)
+        self.hidseq(ord("'"),ord("'"),36,SHIFT)
+        self.hidseq(ord('('),ord('('),37,SHIFT)
+        self.hidseq(ord(')'),ord(')'),38,SHIFT)
+        self.hidseq(ord('~'),ord('~'),39,SHIFT)
+
+        self.hidseq(ord('='),ord('='),45,SHIFT)
+        self.hidseq(ord('~'),ord('~'),46,SHIFT)
+        self.hidseq(ord('`'),ord('`'),47,SHIFT)
+        self.hidseq(ord('{'),ord('{'),48,SHIFT)
+        self.hidseq(ord('}'),ord('}'),49,SHIFT)
+        self.hidseq(ord('+'),ord('+'),51,SHIFT)
+        self.hidseq(ord('*'),ord('*'),52,SHIFT)
+        self.hidseq(ord('<'),ord('<'),54,SHIFT)
+        self.hidseq(ord('>'),ord('>'),55,SHIFT)
+        self.hidseq(ord('?'),ord('?'),56,SHIFT)
+
 
     def hidseq(self, ascSt, ascEn, hidSt, mod):
         for k in range(ascSt,ascEn+1):
@@ -42,4 +66,5 @@ for k in Kt.tran(sys.argv[1]):
     kbuff = bytes([k['mod'], 0, k['code'], 0,0,0,0,0])
     with open('/dev/hidg1', 'wb') as f:
         f.write( kbuff )
+        f.write( offbuff )
         f.write( offbuff )
