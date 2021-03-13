@@ -26,9 +26,9 @@ class HIDkey():
         self.hidseq(ord('A'),ord('Z'),4,SHIFT)
 
         self.hidseq(ord('!'),ord('!'),30,SHIFT)
-        #self.hidseq(ord('"'),ord('"'),31,SHIFT)
+        self.hidseq(ord('"'),ord('"'),31,SHIFT)
         self.hidseq(ord('#'),ord('#'),32,SHIFT)
-        #self.hidseq(ord('$'),ord('$'),33,SHIFT)
+        self.hidseq(ord('$'),ord('$'),33,SHIFT)
         self.hidseq(ord('%'),ord('%'),34,SHIFT)
         self.hidseq(ord('&'),ord('&'),35,SHIFT)
         self.hidseq(ord("'"),ord("'"),36,SHIFT)
