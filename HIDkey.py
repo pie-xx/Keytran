@@ -82,5 +82,5 @@ class USBHIDkey():
             time.sleep(wait)
 
     def putASCKey(self, mod, code):
-        k = self.KT(code)
+        k = self.KT[code]
         self.putKey(k['mod'],k['code'])
