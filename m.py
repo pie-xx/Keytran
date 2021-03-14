@@ -43,7 +43,7 @@ class HIDdev():
         kbuff0 = bytes([mod,0,0,0,0,0,0,0])
         kbuff1 = bytes([mod,0,c,0,0,0,0,0])
         offbuff = bytes([0,0,0,0,0,0,0,0])
-        with open('/dev/hidg1', 'w') as f:
+        with open('/dev/hidg1', 'wb') as f:
             f.write(kbuff0)
             time.sleep(wait)
             f.write(kbuff1)
