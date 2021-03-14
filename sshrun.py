@@ -4,42 +4,6 @@ import paramiko
 import time
 import json
 
-class HIDkey():
-    def __init__(self, **kwargs):
-        self.KT= {}
-        self.hidseq(ord(' '),ord(' '),44,"")
-        """
-            self.hidseq(ord('-'),ord('-'),45,"")
-            self.hidseq(ord('='),ord('='),46,"")
-            self.hidseq(ord('['),ord('['),47,"")
-            self.hidseq(ord(']'),ord(']'),48,"")
-            self.hidseq(ord('\\'),ord('\\'),49,"")
-            self.hidseq(ord('#'),ord('#'),50,"")
-            self.hidseq(ord(':'),ord(':'),51,"")
-        """
-        self.hidseq(ord('0'),ord('0'),39,"")
-        self.hidseq(ord('1'),ord('9'),30,"")
-
-        self.hidseq(ord('a'),ord('z'),4,"")
-        self.hidseq(ord('A'),ord('Z'),4,"SHIFT")
-
-        #self.hidseq(ord('!'),40,30,"SHIFT")
-        #print(self.KT)
-
-    def hidseq(self, ascSt, ascEn, hidSt, mod):
-        for k in range(ascSt,ascEn+1):
-            code = k-ascSt+hidSt
-            self.KT[chr(k)]={"code":code, "mod":mod}
-
-    def tran(self, str):
-        rtn = []
-        for s in str:
-            try:
-                rtn.append(self.KT[s])
-            except:
-                rtn.append(self.KT[' '])
-        return rtn
-
 class sshInput():
     def __init__(self, **kwargs):
         with open("pref.json") as f:
@@ -66,11 +30,9 @@ class sshInput():
         self.sendtext = tkinter.StringVar()
         self.editbox = tkinter.Entry(self.frame, textvariable=self.sendtext, width=60 )
         self.editbox.grid(row=0,column=0,sticky=(tkinter.W))
-
-        self.hidKT = HIDkey()
         
     def button1_clicked(self):
-        inputtext = self.sendtext.get()
+        inputtext = self.sendtext.get().replace('\\', '\\\\').replace('"', '\\"')
         self.editbox.delete(0, tkinter.END)
         self.put_ssh(inputtext)
 
@@ -83,7 +45,5 @@ class sshInput():
     def run(self):
         self.root.mainloop()
 
-
 app = sshInput()
 app.run()
-
