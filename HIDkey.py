@@ -1,4 +1,7 @@
-class HIDkey():
+def HIDkey():
+        return USBHIDkey()
+
+class USBHIDkey():
     def __init__(self, **kwargs):
         SHIFT=2
         self.KT= {}
