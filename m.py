@@ -23,7 +23,7 @@ class HIDdev():
         keys += chr(key)
         for n in range(5):
             keys+=chr(0x00)
-        return keys
+        return bytes(keys)
 
     def mkKeyChr( mod, c ):
         key = ord(c) - ord('a') + 4
