@@ -1,11 +1,15 @@
 import time
 
+CTRL = 0x01
+SHIFT = 0x02
+ALT = 0x04
+META = 0x08
+
 def create():
         return USBHIDkey()
 
 class USBHIDkey():
     def __init__(self, **kwargs):
-        SHIFT=2
         self.KT= {}
         self.hidseq(ord(' '),ord(' '),44,0)
         self.hidseq(ord('-'),ord('-'),45,0)

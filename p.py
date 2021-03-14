@@ -5,35 +5,7 @@ from tkinter import ttk
 import numpy
 from PIL import Image, ImageTk
 import time
-
-class HIDkey():
-    Ctrl = 0x01
-    Shift = 0x02
-    Alt = 0x04
-    Meta = 0x08
-
-    off=""
-    for n in range(8):
-        off+=chr(0x00)
-
-    def mkKey( mod, key ):
-        keys = ""
-        keys += chr(mod)
-        keys += chr(0x00)
-        keys += chr(key)
-        for n in range(5):
-            keys+=chr(0x00)
-        return keys
-
-    def mkKeyChr( mod, c ):
-        key = ord(c) - ord('a') + 4
-        keys = ""
-        keys += chr(mod)
-        keys += chr(0x00)
-        keys += chr(key)
-        for n in range(5):
-            keys+=chr(0x00)
-        return keys
+import HIDkey
 
 class CAPapp():
     def __init__(self, **kwargs):
@@ -78,18 +50,10 @@ class CAPapp():
                 )
         self.cblistBtn.grid(row=4,column=0, ipady=self.bH, ipadx=10)
         
+        self.Kt = HIDkey.create()
 
     def putKey(self, mod, c):
-        wait=0.02
-        with open('/dev/hidg0', 'w') as f:
-            f.write(HIDkey.mkKey(mod, 0))
-            time.sleep(wait)
-            f.write(HIDkey.mkKeyChr(mod, c))
-            time.sleep(wait)
-            f.write(HIDkey.mkKey(mod, 0))
-            time.sleep(wait)
-            f.write(HIDkey.mkKey(0, 0))
-            time.sleep(wait)
+        self.Kt.putKey( mod, c )
 
     def cutBtn_clicked(self):
         self.putKey( HIDkey.Ctrl, 'x')
