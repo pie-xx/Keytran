@@ -64,7 +64,7 @@ class HIDkey():
 
     def putKey(self, mod, code):
         kbuff = bytes([mod, 0, code, 0,0,0,0,0])
-	    with open('/dev/hidg1', 'wb') as f:
-	        f.write( kbuff )
-	        f.write( self.offbuff )
-	        f.write( self.offbuff )
+        with open('/dev/hidg1', 'wb') as f:
+            f.write( kbuff )
+            f.write( self.offbuff )
+            f.write( self.offbuff )
