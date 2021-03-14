@@ -68,9 +68,11 @@ class USBHIDkey():
 
     def putKey(self, mod, code):
         kbuff = bytes([mod, 0, code, 0,0,0,0,0])
+        wait=0.02
         with open('/dev/hidg1', 'wb') as f:
             f.write( kbuff )
-            time.sleep(0.02)
+            time.sleep(wait)
             f.write( self.offbuff )
-            time.sleep(0.02)
+            time.sleep(wait)
             f.write( self.offbuff )
+            time.sleep(wait)
