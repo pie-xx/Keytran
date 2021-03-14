@@ -1,3 +1,5 @@
+import time
+
 def create():
         return USBHIDkey()
 
@@ -50,7 +52,6 @@ class USBHIDkey():
         
         self.offbuff = bytes([0,0,0,0,0,0,0,0])
 
-
     def hidseq(self, ascSt, ascEn, hidSt, mod):
         for k in range(ascSt,ascEn+1):
             code = k-ascSt+hidSt
@@ -69,5 +70,7 @@ class USBHIDkey():
         kbuff = bytes([mod, 0, code, 0,0,0,0,0])
         with open('/dev/hidg1', 'wb') as f:
             f.write( kbuff )
+            time.sleep(0.02)
             f.write( self.offbuff )
+            time.sleep(0.02)
             f.write( self.offbuff )
