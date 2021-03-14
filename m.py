@@ -40,14 +40,17 @@ class HIDdev():
     
     def putKey(self, mod, c):
         wait=0.02
+        kbuff0 = bytes([mod,0,0,0,0,0,0,0])
+        kbuff1 = bytes([mod,0,c,0,0,0,0,0])
+        offbuff = bytes([0,0,0,0,0,0,0,0])
         with open('/dev/hidg1', 'w') as f:
-            f.write(HIDdev.mkKey(mod, 0))
+            f.write(kbuff0)
             time.sleep(wait)
-            f.write(HIDdev.mkKey(mod, c))
+            f.write(kbuff1)
             time.sleep(wait)
-            f.write(HIDdev.mkKey(mod, 0))
+            f.write(kbuff0)
             time.sleep(wait)
-            f.write(HIDdev.mkKey(0, 0))
+            f.write(offbuff)
             time.sleep(wait)
 
     def moveMouse(self, x, y ):
