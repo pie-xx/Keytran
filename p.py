@@ -56,25 +56,25 @@ class CAPapp():
         self.Kt.putKey( mod, c )
 
     def cutBtn_clicked(self):
-        self.putKey( HIDkey.Ctrl, 'x')
+        self.putKey( HIDkey.CTRL, 'x')
 
     def copyBtn_clicked(self):
-        self.putKey( HIDkey.Ctrl, 'c')
+        self.putKey( HIDkey.CTRL, 'c')
 
     def pasteBtn_clicked(self):
-        self.putKey( HIDkey.Ctrl, 'v')
+        self.putKey( HIDkey.CTRL, 'v')
 
     def undoBtn_clicked(self):
-        self.putKey( HIDkey.Ctrl, 'z')
+        self.putKey( HIDkey.CTRL, 'z')
         
     def cblistBtn_clicked(self):
-        self.putKey( HIDkey.Shift, 'h')
+        self.putKey( HIDkey.SHIFT, 'h')
         self.putKey( 0, 'e')
         self.putKey( 0, 'l')
         self.putKey( 0, 'l')
         self.putKey( 0, 'o')
         self.putKey( 0, ' ')
-        self.putKey( HIDkey.Shift, 'w')
+        self.putKey( HIDkey.SHIFT, 'w')
         self.putKey( 0, 'o')
         self.putKey( 0, 'r')
         self.putKey( 0, 'l')
