@@ -78,7 +78,7 @@ class CAPapp():
         self.putKey( 0, 'o')
         self.putKey( 0, 'r')
         self.putKey( 0, 'l')
-        self.putKey 0, 'd')
+        self.putKey( 0, 'd')
 
     def run(self):
         self.root.mainloop()
