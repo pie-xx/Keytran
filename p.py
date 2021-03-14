@@ -53,32 +53,32 @@ class CAPapp():
         self.Kt = HIDkey.create()
 
     def putKey(self, mod, c):
-        self.Kt.putKey( mod, c )
+        self.Kt.putASCKey( mod, c )
 
     def cutBtn_clicked(self):
-        self.putKey( HIDkey.CTRL, 'x')
+        self.putASCKey( HIDkey.CTRL, 'x')
 
     def copyBtn_clicked(self):
-        self.putKey( HIDkey.CTRL, 'c')
+        self.putASCKey( HIDkey.CTRL, 'c')
 
     def pasteBtn_clicked(self):
-        self.putKey( HIDkey.CTRL, 'v')
+        self.putASCKey( HIDkey.CTRL, 'v')
 
     def undoBtn_clicked(self):
-        self.putKey( HIDkey.CTRL, 'z')
+        self.putASCKey( HIDkey.CTRL, 'z')
         
     def cblistBtn_clicked(self):
-        self.putKey( HIDkey.SHIFT, 'h')
-        self.putKey( 0, 'e')
-        self.putKey( 0, 'l')
-        self.putKey( 0, 'l')
-        self.putKey( 0, 'o')
-        self.putKey( 0, ' ')
-        self.putKey( HIDkey.SHIFT, 'w')
-        self.putKey( 0, 'o')
-        self.putKey( 0, 'r')
-        self.putKey( 0, 'l')
-        self.putKey( 0, 'd')
+        self.putASCKey( HIDkey.SHIFT, 'h')
+        self.putASCKey( 0, 'e')
+        self.putASCKey( 0, 'l')
+        self.putASCKey( 0, 'l')
+        self.putASCKey( 0, 'o')
+        self.putASCKey( 0, ' ')
+        self.putASCKey( HIDkey.SHIFT, 'w')
+        self.putASCKey( 0, 'o')
+        self.putASCKey( 0, 'r')
+        self.putASCKey( 0, 'l')
+        self.putASCKey( 0, 'd')
 
     def run(self):
         self.root.mainloop()
