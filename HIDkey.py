@@ -1,4 +1,4 @@
-def HIDkey():
+def create():
         return USBHIDkey()
 
 class USBHIDkey():
