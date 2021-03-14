@@ -79,8 +79,6 @@ class USBHIDkey():
             time.sleep(wait)
             f.write( kbuff )
             time.sleep(wait)
-            f.write( mbuff )
-            time.sleep(wait)
             f.write( self.offbuff )
             time.sleep(wait)
             f.write( self.offbuff )
